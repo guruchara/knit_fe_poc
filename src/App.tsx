@@ -1,16 +1,27 @@
 import { useEffect, useRef } from "react";
 
+/* 
+ Notes: 
+   We can't skip the continue step because if user's if not enabled the category then knit ui will not identity the category can't process moving ahead
+*/
 function App() {
   const knitRef = useRef<HTMLElement>(null);
   // Backend call to generate & get the authSessionToken
-  const newSessionFn = (e) => {
-    e?.preventDefault();
-  
+  const newSessionFn = () => {
     const requestBody = {
       originOrgId: "testingGuru100",
       originOrgName: "CodeStream_1",
-      originUserEmail: "gurucharanchouhan17@gmail.com",
-      originUserName: "gurucharan_chouhan"
+      originUserEmail: "gurucharan.chouhan+1000@skuad.io",
+      originUserName: "gurucharan_chouhan",
+      // this is dummy addition for skip the continue step and select app step. 
+      filters: [
+        {
+          "apps": [
+            "bamboohr"
+          ],
+          "category": "HRIS"
+        }
+      ]
     };
   
     fetch('http://localhost:3001/getSessionToken', {
@@ -23,6 +34,7 @@ function App() {
       .then(res => res.json())
       .then((r) => {
         if (r.success) {
+          console.log("result33",r)
           // Handle the token (e.g., save it in localStorage or pass it to the UI component)
           knitRef?.current?.setAttribute("authsessiontoken", r.token);
           console.log('SessionToken:', r.token);
@@ -73,10 +85,8 @@ function App() {
   }, []);
 
   return (
-    //@ts-expect-error type error issue will fix later
     <knit-auth ref={knitRef}>
-      <button slot="trigger">Open Knit</button>
-    {/*@ts-expect-error type error issue will fix later  */}
+      <button slot="trigger">Add to Skuad</button>
     </knit-auth>
   );
 }
