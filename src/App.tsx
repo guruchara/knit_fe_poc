@@ -17,9 +17,16 @@ function App() {
       filters: [
         {
           "apps": [
-            "bamboohr"
+            // This only for the bambooHr 
+            // "bamboohr"
+            //This for the quickbooks 
+            "quickbooks"
           ],
-          "category": "HRIS"
+          // This only for the bambooHr Category
+          //  "category": "HRIS"
+
+          //This for the quickbooks 
+          "category": "ACCOUNTING"
         }
       ]
     };
